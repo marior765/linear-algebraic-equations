@@ -10,6 +10,11 @@ interface IProps {
 }
 
 export class ArrayContainer extends React.Component<IProps, IState> {
+
+    private A:Number[][] = [[],[]];
+    private X:Number[] = [];
+
+
     constructor(props: IProps) {
         super(props);
 
@@ -19,10 +24,21 @@ export class ArrayContainer extends React.Component<IProps, IState> {
         }
     }
 
-    valueHandler(e: number, index: number) {
+    valueHandler(e: string, index: number) {
         let a = this.state.arrayValue;
-        a[index] = e;
+        let x = +e;
+        a[index] = x;
         this.setState({arrayValue: a});
+    }
+
+    convertToDoubleArray() {
+        let k = 0;
+        for (let i = 0; i < this.props.size; i++) {
+            for (let j = 0; j < this.props.size; j++) {
+                this.A[i][j] = this.state.arrayValue[k];
+                k++;0
+            }
+        }
     }
 
     render() {
