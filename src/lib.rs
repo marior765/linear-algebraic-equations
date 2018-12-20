@@ -26,6 +26,11 @@ pub fn greet() {
     alert("Hello, wasm-game-of-life!");
 }
 
+// #[wasm_bindgen]
+// pub fn LU(A: &[&[u32]]) {
+
+// }
+
 
 
 

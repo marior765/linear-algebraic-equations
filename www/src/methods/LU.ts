@@ -1,6 +1,6 @@
 
 export function LU(n: number, a: number[][], b: number[], x: number[])
-    : void {
+    : number[] {
         for (let j = 0; j < n; j++) {
             for (let i = j; i < n; i++) {
                 for (let k = 0; k <= j - 1; k++)
@@ -26,7 +26,8 @@ export function LU(n: number, a: number[][], b: number[], x: number[])
                 x[i] -= a[i][j] * x[j];
             }
         }
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < n; i++) {
             console.log(`In LU X[${i}] = ${x[i]}`);
         }
+        return x;
 }
