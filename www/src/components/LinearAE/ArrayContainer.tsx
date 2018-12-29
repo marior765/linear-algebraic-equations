@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LU } from '../methods/LU';
+import { LU } from '../../methods/LU';
 
 interface IState { 
     aValue: Array<number>
@@ -13,7 +13,7 @@ interface IProps {
 
 export class ArrayContainer extends React.Component<IProps, IState> {
 
-    private size: number = this.props.size;
+    private size: number = this.props.size || 3;
     private A:number[][] = new Array(this.size).fill([]);
 
     constructor(props: IProps) {
@@ -24,23 +24,27 @@ export class ArrayContainer extends React.Component<IProps, IState> {
             bValue: new Array(this.size).fill(''),
             x: []
         }
+
+        this.valueHandler = this.valueHandler.bind(this);
+        this.valueHandlerForB = this.valueHandlerForB.bind(this);
+        this.calculateLU = this.calculateLU.bind(this);
     }
 
-    valueHandler = (e: string, index: number) => {
+    valueHandler(e: string, index: number) {
         let a = this.state.aValue;
         let x = +e;
         a[index] = +x;
         this.setState({aValue: a});
     }
 
-    valueHandlerForB = (e: string, index: number) => {
+    valueHandlerForB(e: string, index: number) {
         let a = this.state.bValue;
         let x = +e;
         a[index] = +x;
         this.setState({bValue: a});
     }
 
-    calculateLU = () => {
+    calculateLU() {
         let k = 0;
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
@@ -52,7 +56,6 @@ export class ArrayContainer extends React.Component<IProps, IState> {
     }
 
     render() {
-        // if (this.size === 1) return <p>Choose another value!</p>
         return (
             <div>
                 <div style={{flex: 1, flexDirection: 'row'}}>
@@ -62,11 +65,10 @@ export class ArrayContainer extends React.Component<IProps, IState> {
                                 <input
                                     onChange={e => this.valueHandler(e.target.value, index)}
                                     style={{width: 50, borderRadius: 10, textAlign: 'center'}}
-                                    value=
-                                    {
-                                        this.state.aValue[index].toString() == 'NaN' ?
-                                        '' : this.state.aValue[index].toString()
-                                    }
+                                    value={
+                                            this.state.aValue[index].toString() == 'NaN' ?
+                                            '' : this.state.aValue[index].toString()
+                                          }
                                     key={index} />)
                         }
                     </div>
