@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { ArrayNavigation } from './LinearAE/ArrayNavigation';
 
-interface Props {}
-
-interface State {}
-
-export default class Navigation extends React.Component<Props, State> {
-    render() {
-        return (
-            
-        )
-    }
-}
+export const Navigation = () => (
+    <div>
+        <ArrayNavigation />
+    </div>
+)

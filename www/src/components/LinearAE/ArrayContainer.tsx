@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { LU } from '../../methods/LU';
+import { QR } from '../../methods/QR';
+import { LDL } from '../../methods/LDL';
+import { style } from 'typestyle';
 
 interface IState { 
     aValue: Array<number>
@@ -10,6 +13,20 @@ interface IState {
 interface IProps {
     size: number
 }
+
+const MainContainer = style({
+    textAlign: 'center',
+    flex: 1,
+    flexDirection: 'row'
+}),
+Cell = style({
+    width: 100,
+    height: 30,
+    textAlign: 'center',
+    border: '1.5px solid',
+    borderRadius: 5,
+    margin: 1
+})
 
 export class ArrayContainer extends React.Component<IProps, IState> {
 
@@ -58,13 +75,13 @@ export class ArrayContainer extends React.Component<IProps, IState> {
     render() {
         return (
             <div>
-                <div style={{flex: 1, flexDirection: 'row'}}>
-                    <div style={{flex: 1,width: 60 * this.size, flexWrap: "wrap", padding: 10}}>
+                <div className='array-container'>
+                    <div className={style({width: 120 * this.size})}>
                         {
                             this.state.aValue.map((item: any, index: number) => 
                                 <input
                                     onChange={e => this.valueHandler(e.target.value, index)}
-                                    style={{width: 50, borderRadius: 10, textAlign: 'center'}}
+                                    className={Cell}
                                     value={
                                             this.state.aValue[index].toString() == 'NaN' ?
                                             '' : this.state.aValue[index].toString()
@@ -72,12 +89,12 @@ export class ArrayContainer extends React.Component<IProps, IState> {
                                     key={index} />)
                         }
                     </div>
-                    <div style={{flex: 1, flexDirection: 'row'}}>
+                    <div className='b-container'>
                         {
                             this.state.bValue.map((item: any, index: number) => 
                             <input
                                 onChange={e => this.valueHandlerForB(e.target.value, index)}
-                                style={{width: 50, borderRadius: 10, textAlign: 'center'}}
+                                className={Cell}
                                 value=
                                 {
                                     this.state.bValue[index].toString() == 'NaN' ?
@@ -86,18 +103,18 @@ export class ArrayContainer extends React.Component<IProps, IState> {
                                 key={index} />)
                         }
                     </div>
-                    <div style={{flex: 1, flexDirection: 'row'}}>
+                    <div className='x-container'>
                         {
                             this.state.bValue.map((item: any, index: number) => 
                             <input
                                 readOnly={true}
-                                style={{width: 50, borderRadius: 10, textAlign: 'center'}}
+                                className={Cell}
                                 value={this.state.x[index] == null ? '' : this.state.x[index].toString()}
                                 key={index} />)
                         }
                     </div>
                 </div>
-                <button onClick={this.calculateLU}>Calculate</button>
+                <button className='array-button' onClick={this.calculateLU}>Calculate</button>
             </div>
         )
     }

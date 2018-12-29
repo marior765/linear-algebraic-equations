@@ -27,8 +27,8 @@ pub fn greet() {
 }
 
 // #[wasm_bindgen]
-// pub fn LU(A: &[&[u32]]) {
-
+// pub fn LU(n: i32, A: &mut [&mut [i32]], B: &mut [i32], X: &mut [i32]) {
+//     println!("gsgfdg");
 // }
 
 
