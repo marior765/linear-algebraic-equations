@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "esnext",
+    "module": "esNext",
     "target": "es6",
     "jsx": "preserve",
     "allowJs": true,

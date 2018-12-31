@@ -21,5 +21,19 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+    <!-- <pre id="game-of-life-canvas"></pre>
+    <script>
+      import { Universe } from 'incoming';
+      console.log(Universe, '1');
+      const pre = document.getElementById("game-of-life-canvas");
+      const universe = Universe.now();
+
+      const renderLoop = () => {
+        pre.textContent = universe.render();
+        universe.tick();
+
+        requestAnimationFrame(renderLoop);
+      }
+    </script> -->
   </body>
 </html>
