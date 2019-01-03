@@ -4,6 +4,7 @@ export interface HelloProps { compiler: string; framework: string }
 
 export class Hello extends React.Component<HelloProps, {}> {
     render() {
+        var i = new Float32Array([]);
         return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
     } 
 }

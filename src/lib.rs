@@ -128,14 +128,6 @@ impl fmt::Display for Universe {
     }
 }
 
-
-
-
-
-
-
-//use std::fmt;
-
 //  #[wasm_bindgen]
 //  #[repr(u8)]
 //  #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -185,48 +177,159 @@ impl fmt::Display for Universe {
 
 //  }
 
-use std::iter::IntoIterator::into_iter;
+// use std::iter::IntoIterator::into_iter;
 
 #[wasm_bindgen]
-pub fn LDL(n: i32, a: Vec<Vec<i32>>, b: Vec<i32>, x: Vec<i32>) 
+pub fn ldl(n: usize, mut a: Vec<Vec<i32>>, b:Vec<i32>, mut x: Vec<i32>) -> (Vec<Vec<i32>>, Vec<i32>)
 {
-    for j in n.into_iter()
+    for j in 0..n
     {
-        for k in j
+        for k in 0..j
         {
             a[j][j] -= a[j][k] * a[j][k] * a[k][k];
         }
         let mut i = j + 1;
-        for i in n
+        for i in 0..3
         {
-            for k in j
+            for k in 0..j
             {
                 a[i][j] -= a[i][k] * a[k][k] * a[j][k];
             }
             a[i][j] /= a[j][j];
         }
     }
-    for i in n
+    for i in 0..3
     {
 		x[i] = b[i];
-		for j in i 
+		for j in 0..i 
         {
 			x[i] -= a[i][j] * x[j];
 		}
 	}
-	for i in n 
+	for i in 0..3
     {
 		x[i] = x[i] / a[i][i];
 	}
-    let mut i = n - 1;
+    let i = n - 1;
 	for i in i..0
     {
         let mut j = i + 1;
-		for j in n
+		for j in 0..3
         {
 			x[i] -= a[j][i] * x[j];
 		}
 	}
+    (a, x)
+}
+
+#[warn(unused_imports)]
+use std::num;
+
+#[wasm_bindgen]
+pub fn qr(n: usize, mut a: Vec<Vec<f32>>, b:Vec<f32>, mut x: Vec<f32>) -> (Vec<Vec<f32>>, Vec<f32>)
+{
+    let mut alpha: f32;
+    let mut k: f32;
+    let mut t: f32;
+    for j in 0..n-1
+    {
+     alpha = 0.0;
+     let i = j;
+     for i in 0..n
+     {
+         alpha += a[i][j] * a[i][j];
+     }
+     alpha = alpha.sqrt();
+     if (a[j][j] >= 0) 
+     {
+         alpha *= -1.0;
+     }
+     k = 1.0 / (alpha * alpha - alpha * a[j][j]);
+     a[j][j] -= alpha;
+     let i = j + 1;
+     for i in 0..n
+     {
+        t = 0.0;
+        let l = j;
+        for l in 0..n
+        {
+            t += a[l][j] * a[l][i];
+        }
+        for l in 0..n
+        {
+            a[l][i] -= k * a[l][j] * t;
+        }
+     }
+     t = 0.0;
+     let i = j;
+     for i in 0..n
+     {
+         t += a[i][j] * b[i];
+     }
+     for i in 0..n
+     {
+         b[i] -= k * a[i][j] * t;
+     }
+     a[j][j] = alpha;
+    }
+    let i = n - 1;
+    for i in i..0
+    {
+        x[i] = b[i];
+        let j = i + 1;
+        for j in 0..n
+        {
+            x[i] /= a[i][i];
+        }
+    }
+    (a, x)
+}
+
+#[wasm_bindgen]
+pub fn lu(n: usize, a: Vec<Vec<i32>>, b: Vec<i32>, x: Vec<i32>) -> (Vec<Vec<i32>>, Vec<i32>)
+{
+    for j in 0..n 
+    {
+        let i = j;
+        for i in 0..n
+        {
+            for k in 0..n - 1 
+            {
+                a[i][j] -= a[i][k] * a[k][j];
+            }
+        }
+        //
+        let i = j + 1;
+        for i in 0..n 
+        {
+            for k in 0..j - 1
+            {
+                a[j][i] -= a[j][k] * a[k][i];
+            }
+            a[j][i] /= a[j][j];
+        }
+    }
+    //LY=B
+    for i in 0..n 
+    {
+        x[i] = b[i];
+        for j in 0..i - 1 
+        { 
+            x[i] -= a[i][j] * x[j]; 
+        } 
+        x[i] /= a[i][i];
+    }
+    //Ux = Y
+    let i = n - 1;
+    for i in i..0 
+    {
+        let j = i + 1;
+        for j in 0..n 
+        {
+            x[i] -= a[i][j] * x[j];
+        }
+    }
+    (a, x)
 }
 
 
