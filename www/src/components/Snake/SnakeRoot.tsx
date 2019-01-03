@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Universe } from 'incoming';
+// import { Universe } from 'incoming';
 
 export default class SnakeRoot extends React.Component {
-    private universe = Universe.new();
+    // private universe = Universe.new();
 
     // renderLoop = () => {
     //     this.universe.tick();

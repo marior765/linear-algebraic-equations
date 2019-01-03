@@ -2,7 +2,7 @@
 #![feature(test)]
 
 extern crate test;
-extern crate wasm_game_of_life;
+extern crate incoming;
 
 #[bench]
 fn universe_ticks(b: &mut test::Bencher) {
