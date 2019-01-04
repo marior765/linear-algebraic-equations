@@ -13,7 +13,7 @@ cfg_if! {
     }
 }
 
-#[wasm_bindgen(start)]
+#[wasm_bindgen]
 pub fn run()
 {
     bare_bones();

@@ -1,6 +1,7 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
 
+mod dom;
 mod console;
 mod utils;
 
@@ -345,6 +346,5 @@ impl fmt::Display for Universe {
 //     }
 //     (a, x)
 // }
-
 
 
